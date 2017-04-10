@@ -1,0 +1,30 @@
+#!/bin/bash
+
+downloadwordpress_version=1
+
+# Input check
+if [ -z $1 ]; then
+    echo Please, provides the first argument to be the wordpress directory name.
+    exit
+fi
+
+# Functions declarations
+uget() {
+	if which wget > /dev/null 2>&1; then
+		wget $1
+	elif which curl > /dev/null 2>&1; then
+		curl -O $1
+	else
+		echo Neither wget or curl is installed in the system. I can\'t continue.
+		exit
+	fi
+}
+
+# Actions
+packfile=latest.tar.gz
+basepackname=$(basename $packfile .tar.gz)
+
+uget https://wordpress.org/$packfile
+tar xvzf $packfile
+mv $basepackname $1
+rm $packfile
