@@ -21,10 +21,13 @@ uget() {
 }
 
 # Actions
-packfile=latest.tar.gz
-basepackname=$(basename $packfile .tar.gz)
 
-uget https://wordpress.org/$packfile
-tar xvzf $packfile
-mv $basepackname $1
-rm $packfile
+tmpfolder=tmp-$(date +"%Y%m%d-%Hh%Mm%Ss")
+mkdir $tmpfolder
+cd $tmpfolder
+uget https://wordpress.org/latest.tar.gz
+tar xvzf latest.tar.gz
+mv wordpress $1
+mv $1 ../
+cd ../
+rm -r $tmpfolder
