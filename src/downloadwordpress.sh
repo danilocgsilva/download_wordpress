@@ -1,6 +1,6 @@
 #!/bin/bash
 
-downloadwordpress_version="0.0.1"
+tmpfolder=tmp-$(date +"%Y%m%d-%Hh%Mm%Ss")
 
 ## Ensure there are the right utility installed in the system
 downloadwordpress_uget() {
@@ -16,9 +16,7 @@ downloadwordpress_uget() {
 
 ## Main function 
 downloadwordpress () {
-	tmpfolder=tmp-$(date +"%Y%m%d-%Hh%Mm%Ss")
 	mkdir $tmpfolder
-	cd $tmpfolder
 	downloadwordpress_uget https://wordpress.org/latest.tar.gz
 	tar xvzf latest.tar.gz
 	if [ ! -z $1 ]; then
