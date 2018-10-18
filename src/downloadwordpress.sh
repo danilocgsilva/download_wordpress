@@ -14,18 +14,26 @@ downloadwordpress_uget() {
 	fi
 }
 
+clean_no_path_given () {
+	rm latest.tar.gz
+	mv wordpress/* $tmpfolder
+	mv wordpress/.* $tmpfolder
+	rmdir wordpress
+}
+
 ## Main function 
 downloadwordpress () {
 	mkdir $tmpfolder
 	downloadwordpress_uget https://wordpress.org/latest.tar.gz
-	tar xvzf latest.tar.gz
+	echo Unpacking...
+	tar xzf latest.tar.gz
 	if [ ! -z $1 ]; then
 		mv wordpress $1
 		mv $1 ../
 		cd ../
 		rm -r $tmpfolder
 	else
-		rm latest.tar.gz
+		clean_no_path_given
 		echo Finished.
 		echo If you wish, you can provides an addition argument to be a named folder with WordPress program files.
 	fi
